@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMA • Dashboard</title>
+  <link rel="stylesheet" href="style.css?v=2">
+
+  <script src="Libs/mqtt.min.js"></script>
+  <script src="Libs/chart.min.js"></script>
+  <script src="script.js?v=2" defer></script>
+
+</head>
+<body>
+
+  <div class="dashboard-container">
+
+    <header class="top-header">
+      <div class="title-wrapper">
+        <h1>Ambiente • EST_UEA</h1>
+        <span class="badge online" id="srvStatus">● Conectando...</span>
+      </div>
+      <p class="subtitle">Monitoramento Inteligente (SIMA)</p>
+    </header>
+
+    <section class="realtime-zone">
+      <div class="cards-grid">
+        <div class="card" id="cardTemp">
+          <span class="card-title">Temperatura</span>
+          <div class="card-data">
+            <span class="qualitative" id="tempValue">--</span>
+            <span class="quantitative" id="tempAlert">Aguardando dados...</span>
+          </div>
+        </div>
+        <div class="card" id="cardHum">
+          <span class="card-title">Umidade</span>
+          <div class="card-data">
+            <span class="qualitative" id="humValue">--</span>
+            <span class="quantitative" id="humAlert">Aguardando dados...</span>
+          </div>
+        </div>
+        <div class="card" id="cardLux">
+          <span class="card-title">Luminosidade</span>
+          <div class="card-data">
+            <span class="qualitative" id="luxValue">--</span>
+            <span class="quantitative" id="luxAlert">Aguardando dados...</span>
+          </div>
+        </div>
+        <div class="card" id="cardAir">
+          <span class="card-title">Qualidade do Ar</span>
+          <div class="card-data">
+            <span class="qualitative" id="airValue">--</span>
+            <span class="quantitative" id="airAlert">Aguardando dados...</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <section class="history-zone">
+      <div class="history-header">
+        <h2>Análise Histórica</h2>
+        <button onclick="baixarPlanilha()" class="btn-download">⬇ Baixar Planilha (CSV)</button>
+      </div>
+
+      <div class="btn-time-group" id="groupBotoes">
+        <button id="btn-60min" onclick="mudarPeriodo('60min')" class="btn-time disabled" disabled>60 Min.</button>
+        <button id="btn-24h" onclick="mudarPeriodo('24h')" class="btn-time disabled" disabled>24 Horas</button>
+        <button id="btn-1sem" onclick="mudarPeriodo('1sem')" class="btn-time disabled" disabled>1 Semana</button>
+        <button id="btn-1mes" onclick="mudarPeriodo('1mes')" class="btn-time disabled" disabled>1 Mês</button>
+      </div>
+
+      <div class="charts-layout">
+        <div class="chart-box">
+          <h3>Temperatura e Umidade (Curvas Graduais)</h3>
+          <div class="canvas-container"><canvas id="chartTempHum"></canvas></div>
+        </div>
+
+        <div class="chart-box">
+          <h3>Luminosidade (Volume de Área Dia/Noite)</h3>
+          <div class="canvas-container"><canvas id="chartLux"></canvas></div>
+        </div>
+
+        <div class="chart-box">
+          <h3>Qualidade do Ar (Picos de Eventos Máximos)</h3>
+          <div class="canvas-container"><canvas id="chartAirBar"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>
